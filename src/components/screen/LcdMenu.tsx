@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 export interface LcdMenuItem {
   id: string;
   label: string;
@@ -14,8 +16,15 @@ interface LcdMenuProps {
 }
 
 export function LcdMenu({ items, size = "md" }: LcdMenuProps) {
+  const listRef = useRef<HTMLUListElement>(null);
+
+  // En listas largas (canciones), al abrir se muestra el elemento resaltado.
+  useEffect(() => {
+    listRef.current?.querySelector("[aria-current]")?.scrollIntoView({ block: "nearest" });
+  }, []);
+
   return (
-    <ul className={size === "md" ? "text-lcd-md" : "text-lcd-base"}>
+    <ul ref={listRef} className={size === "md" ? "text-lcd-md" : "text-lcd-base"}>
       {items.map((item) => {
         const className = `flex w-full justify-between border-b border-dashed border-lcd-divider px-1.5 py-2 text-left focus-visible:outline-1 focus-visible:outline-lcd-accent ${
           item.href || item.onSelect ? "cursor-pointer" : ""
@@ -34,7 +43,12 @@ export function LcdMenu({ items, size = "md" }: LcdMenuProps) {
                 {content}
               </a>
             ) : item.onSelect ? (
-              <button type="button" className={className} onClick={item.onSelect}>
+              <button
+                type="button"
+                className={className}
+                onClick={item.onSelect}
+                aria-current={item.highlighted || undefined}
+              >
                 {content}
               </button>
             ) : (

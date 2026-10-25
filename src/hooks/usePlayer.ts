@@ -12,6 +12,7 @@ export interface Player {
   duration: number | null;
   hasError: boolean;
   togglePlay: () => void;
+  select: (index: number) => void;
   next: () => void;
   previous: () => void;
 }
@@ -95,10 +96,20 @@ export function usePlayer(tracks: readonly Track[]): Player {
     else audio.pause();
   }, []);
 
+  // Seleccionar una canción (listado, ▶▶, ◀◀) siempre la pone a sonar.
+  const select = useCallback(
+    (i: number) => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      // La que ya está cargada no se reinicia: solo se reanuda si estaba en pausa.
+      if (i === indexRef.current) audio.play().catch(() => {});
+      else loadTrack(i, true);
+    },
+    [loadTrack],
+  );
+
   const next = useCallback(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    loadTrack(nextIndex(indexRef.current, tracks.length), !audio.paused);
+    loadTrack(nextIndex(indexRef.current, tracks.length), true);
   }, [tracks, loadTrack]);
 
   const previous = useCallback(() => {
@@ -106,13 +117,14 @@ export function usePlayer(tracks: readonly Track[]): Player {
     if (!audio) return;
     if (shouldRestartOnPrevious(audio.currentTime)) {
       audio.currentTime = 0;
+      audio.play().catch(() => {});
       return;
     }
-    loadTrack(previousIndex(indexRef.current, tracks.length), !audio.paused);
+    loadTrack(previousIndex(indexRef.current, tracks.length), true);
   }, [tracks, loadTrack]);
 
   const track = tracks[index];
   if (!track) throw new Error("usePlayer necesita al menos una pista");
 
-  return { track, index, isPlaying, currentTime, duration, hasError, togglePlay, next, previous };
+  return { track, index, isPlaying, currentTime, duration, hasError, togglePlay, select, next, previous };
 }

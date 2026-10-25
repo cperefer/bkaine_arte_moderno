@@ -7,31 +7,38 @@ import { GalleryView } from "./components/views/GalleryView";
 import { LinksView } from "./components/views/LinksView";
 import { MainMenuView } from "./components/views/MainMenuView";
 import { NowPlayingView } from "./components/views/NowPlayingView";
+import { TracksView } from "./components/views/TracksView";
 import { album, bio, stickerText } from "./data/band";
 import { photos } from "./data/gallery";
 import { socialLinks } from "./data/links";
 import { tracks } from "./data/tracks";
 import { usePlayer } from "./hooks/usePlayer";
 import type { MenuViewId, ViewId } from "./navigation";
-import { VIEW_TITLES } from "./navigation";
+import { MENU_SECTION, PARENT_VIEW, VIEW_TITLES } from "./navigation";
 
 export default function App() {
   const player = usePlayer(tracks);
   const [view, setView] = useState<ViewId>("menu");
   // Como en el iPod, el menú resalta la última sección abierta y SELECT la abre.
-  const [menuCursor, setMenuCursor] = useState<MenuViewId>("player");
+  const [menuCursor, setMenuCursor] = useState<MenuViewId>("tracks");
   const [openPhotoId, setOpenPhotoId] = useState<string | null>(null);
 
   const openView = (next: ViewId) => {
     setView(next);
     setOpenPhotoId(null);
-    if (next !== "menu") setMenuCursor(next);
+    const section = MENU_SECTION[next];
+    if (section) setMenuCursor(section);
   };
 
-  // MENU sube un nivel: de la foto ampliada a la galería; del resto, al menú.
+  // MENU sube un nivel: foto ampliada → galería, reproductor → listado, resto → menú.
   const handleMenu = () => {
     if (view === "gallery" && openPhotoId) setOpenPhotoId(null);
-    else openView("menu");
+    else openView(PARENT_VIEW[view]);
+  };
+
+  const selectTrack = (index: number) => {
+    player.select(index);
+    openView("player");
   };
 
   const handleNext = () => {
@@ -46,6 +53,7 @@ export default function App() {
 
   const handleSelect = () => {
     if (view === "menu") openView(menuCursor);
+    else if (view === "tracks") selectTrack(player.index);
     else player.togglePlay();
   };
 
@@ -53,6 +61,8 @@ export default function App() {
     switch (view) {
       case "menu":
         return <MainMenuView highlighted={menuCursor} onOpen={openView} />;
+      case "tracks":
+        return <TracksView tracks={tracks} currentIndex={player.index} onSelect={selectTrack} />;
       case "player":
         return (
           <NowPlayingView
