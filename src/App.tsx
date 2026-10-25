@@ -13,6 +13,7 @@ import { photos } from "./data/gallery";
 import { socialLinks } from "./data/links";
 import { tracks } from "./data/tracks";
 import { usePlayer } from "./hooks/usePlayer";
+import { tickFeedback } from "./lib/haptics";
 import { moveIndex } from "./lib/wheel";
 import type { MenuViewId, ViewId } from "./navigation";
 import {
@@ -34,31 +35,54 @@ export default function App() {
   const [trackCursor, setTrackCursor] = useState(0);
   const [openPhotoId, setOpenPhotoId] = useState<string | null>(null);
   const screenBodyRef = useRef<HTMLDivElement>(null);
+  // Copia inmediata de los cursores: varios pasos de la rueda pueden llegar
+  // antes del siguiente render, y hay que saber si el resaltado cambió de verdad.
+  const menuCursorRef = useRef(menuCursor);
+  const trackCursorRef = useRef(trackCursor);
+
+  const updateMenuCursor = (next: MenuViewId) => {
+    menuCursorRef.current = next;
+    setMenuCursor(next);
+  };
+
+  const updateTrackCursor = (next: number) => {
+    trackCursorRef.current = next;
+    setTrackCursor(next);
+  };
 
   const openView = (next: ViewId) => {
     setView(next);
     setOpenPhotoId(null);
-    if (next === "tracks") setTrackCursor(player.index);
+    if (next === "tracks") updateTrackCursor(player.index);
     const section = MENU_SECTION[next];
-    if (section) setMenuCursor(section);
+    if (section) updateMenuCursor(section);
   };
 
-  // Girar la rueda: en los menús mueve el resaltado; en las demás vistas desplaza
-  // la pantalla. En el reproductor no hace nada (en el iPod era el volumen).
+  // Girar la rueda: en los menús mueve el resaltado (con un "tic" por cada
+  // cambio); en las demás vistas desplaza la pantalla. En el reproductor no
+  // hace nada (en el iPod era el volumen).
   const handleRotate = (steps: number) => {
     switch (view) {
-      case "menu":
-        setMenuCursor((cursor) => {
-          const index = MENU_ITEMS.findIndex((item) => item.view === cursor);
-          return (
-            MENU_ITEMS[moveIndex(index, steps, MENU_ITEMS.length)]?.view ??
-            cursor
-          );
-        });
+      case "menu": {
+        const cursor = menuCursorRef.current;
+        const index = MENU_ITEMS.findIndex((item) => item.view === cursor);
+        const next =
+          MENU_ITEMS[moveIndex(index, steps, MENU_ITEMS.length)]?.view ?? cursor;
+        if (next !== cursor) {
+          updateMenuCursor(next);
+          tickFeedback();
+        }
         break;
-      case "tracks":
-        setTrackCursor((cursor) => moveIndex(cursor, steps, tracks.length));
+      }
+      case "tracks": {
+        const cursor = trackCursorRef.current;
+        const next = moveIndex(cursor, steps, tracks.length);
+        if (next !== cursor) {
+          updateTrackCursor(next);
+          tickFeedback();
+        }
         break;
+      }
       case "gallery":
       case "bio":
       case "links":

@@ -1,4 +1,5 @@
 import { useWheelRotation } from "../../hooks/useWheelRotation";
+import { tapFeedback } from "../../lib/haptics";
 
 interface ClickWheelProps {
   isPlaying: boolean;
@@ -26,25 +27,40 @@ export function ClickWheel({
   onSelect,
 }: ClickWheelProps) {
   const rotation = useWheelRotation(onRotate);
+  // Los clicks anulados por un giro no llegan aquí, así que tampoco vibran.
+  const press = (action: () => void) => () => {
+    tapFeedback();
+    action();
+  };
 
   return (
     <div
       {...rotation}
       className="click-wheel relative mb-2.5 flex size-57.5 shrink-0 touch-none items-center justify-center rounded-full"
     >
-      <button type="button" className={`${wheelButton} top-1.75`} onClick={onMenu}>
+      <button type="button" className={`${wheelButton} top-1.75`} onClick={press(onMenu)}>
         MENU
       </button>
-      <button type="button" className={`${wheelButton} right-3`} onClick={onNext} aria-label="Siguiente canción">
+      <button
+        type="button"
+        className={`${wheelButton} right-3`}
+        onClick={press(onNext)}
+        aria-label="Siguiente canción"
+      >
         ▶▶
       </button>
-      <button type="button" className={`${wheelButton} left-3`} onClick={onPrevious} aria-label="Canción anterior">
+      <button
+        type="button"
+        className={`${wheelButton} left-3`}
+        onClick={press(onPrevious)}
+        aria-label="Canción anterior"
+      >
         ◀◀
       </button>
       <button
         type="button"
         className={`${wheelButton} bottom-1.75`}
-        onClick={onPlayPause}
+        onClick={press(onPlayPause)}
         aria-label={isPlaying ? "Pausar" : "Reproducir"}
       >
         ▶❚❚
@@ -52,7 +68,7 @@ export function ClickWheel({
       <button
         type="button"
         className="center-button flex size-20 cursor-pointer items-center justify-center rounded-full border border-center-border text-lcd-2xs text-center-label focus-visible:outline-1 focus-visible:outline-lcd-accent active:scale-[0.96]"
-        onClick={onSelect}
+        onClick={press(onSelect)}
       >
         SELECT
       </button>
