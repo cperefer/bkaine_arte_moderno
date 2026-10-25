@@ -21,12 +21,14 @@ export function useWheelRotation(onRotate: (steps: number) => void) {
   const rotated = useRef(false);
 
   const onPointerDown = (e: PointerEvent<HTMLElement>) => {
+    // Cada toque empieza limpio. En móvil, tras arrastrar el dedo el navegador no
+    // suele emitir click, y la marca del giro anterior anulaba el siguiente toque.
+    rotated.current = false;
     const rect = e.currentTarget.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     // El botón central no forma parte del anillo.
     if (Math.hypot(e.clientX - cx, e.clientY - cy) < (rect.width / 2) * INNER_RADIUS_RATIO) return;
-    rotated.current = false;
     gesture.current = {
       pointerId: e.pointerId,
       cx,
