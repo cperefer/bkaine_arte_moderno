@@ -1,5 +1,9 @@
+import { useWheelRotation } from "../../hooks/useWheelRotation";
+
 interface ClickWheelProps {
   isPlaying: boolean;
+  /** Giro de la rueda: positivo en sentido horario (bajar), negativo antihorario (subir). */
+  onRotate: (steps: number) => void;
   onMenu: () => void;
   onPrevious: () => void;
   onNext: () => void;
@@ -12,9 +16,22 @@ interface ClickWheelProps {
 const wheelButton =
   "absolute cursor-pointer p-2 text-lcd-base font-bold tracking-[1px] text-wheel-label focus-visible:outline-1 focus-visible:outline-lcd-accent";
 
-export function ClickWheel({ isPlaying, onMenu, onPrevious, onNext, onPlayPause, onSelect }: ClickWheelProps) {
+export function ClickWheel({
+  isPlaying,
+  onRotate,
+  onMenu,
+  onPrevious,
+  onNext,
+  onPlayPause,
+  onSelect,
+}: ClickWheelProps) {
+  const rotation = useWheelRotation(onRotate);
+
   return (
-    <div className="click-wheel relative mb-2.5 flex size-57.5 shrink-0 items-center justify-center rounded-full">
+    <div
+      {...rotation}
+      className="click-wheel relative mb-2.5 flex size-57.5 shrink-0 touch-none items-center justify-center rounded-full"
+    >
       <button type="button" className={`${wheelButton} top-1.75`} onClick={onMenu}>
         MENU
       </button>

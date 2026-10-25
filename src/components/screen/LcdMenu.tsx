@@ -17,11 +17,12 @@ interface LcdMenuProps {
 
 export function LcdMenu({ items, size = "md" }: LcdMenuProps) {
   const listRef = useRef<HTMLUListElement>(null);
+  const highlightedIndex = items.findIndex((item) => item.highlighted);
 
-  // En listas largas (canciones), al abrir se muestra el elemento resaltado.
+  // En listas largas (canciones) el elemento resaltado se mantiene a la vista.
   useEffect(() => {
     listRef.current?.querySelector("[aria-current]")?.scrollIntoView({ block: "nearest" });
-  }, []);
+  }, [highlightedIndex]);
 
   return (
     <ul ref={listRef} className={size === "md" ? "text-lcd-md" : "text-lcd-base"}>

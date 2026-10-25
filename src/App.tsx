@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ClickWheel } from "./components/device/ClickWheel";
 import { IpodShell } from "./components/device/IpodShell";
 import { LcdScreen } from "./components/screen/LcdScreen";
@@ -13,21 +13,60 @@ import { photos } from "./data/gallery";
 import { socialLinks } from "./data/links";
 import { tracks } from "./data/tracks";
 import { usePlayer } from "./hooks/usePlayer";
+import { moveIndex } from "./lib/wheel";
 import type { MenuViewId, ViewId } from "./navigation";
-import { MENU_SECTION, PARENT_VIEW, VIEW_TITLES } from "./navigation";
+import {
+  MENU_ITEMS,
+  MENU_SECTION,
+  PARENT_VIEW,
+  VIEW_TITLES,
+} from "./navigation";
+
+/** Desplazamiento de la pantalla por cada paso de la rueda en vistas de contenido. */
+const WHEEL_SCROLL_PX = 48;
 
 export default function App() {
   const player = usePlayer(tracks);
   const [view, setView] = useState<ViewId>("menu");
   // Como en el iPod, el menú resalta la última sección abierta y SELECT la abre.
   const [menuCursor, setMenuCursor] = useState<MenuViewId>("tracks");
+  // Canción resaltada en el listado; al abrirlo empieza en la que está cargada.
+  const [trackCursor, setTrackCursor] = useState(0);
   const [openPhotoId, setOpenPhotoId] = useState<string | null>(null);
+  const screenBodyRef = useRef<HTMLDivElement>(null);
 
   const openView = (next: ViewId) => {
     setView(next);
     setOpenPhotoId(null);
+    if (next === "tracks") setTrackCursor(player.index);
     const section = MENU_SECTION[next];
     if (section) setMenuCursor(section);
+  };
+
+  // Girar la rueda: en los menús mueve el resaltado; en las demás vistas desplaza
+  // la pantalla. En el reproductor no hace nada (en el iPod era el volumen).
+  const handleRotate = (steps: number) => {
+    switch (view) {
+      case "menu":
+        setMenuCursor((cursor) => {
+          const index = MENU_ITEMS.findIndex((item) => item.view === cursor);
+          return (
+            MENU_ITEMS[moveIndex(index, steps, MENU_ITEMS.length)]?.view ??
+            cursor
+          );
+        });
+        break;
+      case "tracks":
+        setTrackCursor((cursor) => moveIndex(cursor, steps, tracks.length));
+        break;
+      case "gallery":
+      case "bio":
+      case "links":
+        screenBodyRef.current?.scrollBy({ top: steps * WHEEL_SCROLL_PX });
+        break;
+      case "player":
+        break;
+    }
   };
 
   // MENU sube un nivel: foto ampliada → galería, reproductor → listado, resto → menú.
@@ -53,7 +92,7 @@ export default function App() {
 
   const handleSelect = () => {
     if (view === "menu") openView(menuCursor);
-    else if (view === "tracks") selectTrack(player.index);
+    else if (view === "tracks") selectTrack(trackCursor);
     else player.togglePlay();
   };
 
@@ -62,7 +101,15 @@ export default function App() {
       case "menu":
         return <MainMenuView highlighted={menuCursor} onOpen={openView} />;
       case "tracks":
-        return <TracksView tracks={tracks} currentIndex={player.index} onSelect={selectTrack} />;
+        return (
+          <TracksView
+            tracks={tracks}
+            cursorIndex={trackCursor}
+            currentIndex={player.index}
+            isPlaying={player.isPlaying}
+            onSelect={selectTrack}
+          />
+        );
       case "player":
         return (
           <NowPlayingView
@@ -96,11 +143,16 @@ export default function App() {
     <main className="flex min-h-dvh items-center justify-center p-2.5">
       <h1 className="sr-only">B.KAINE — Arte Moderno</h1>
       <IpodShell stickerText={stickerText}>
-        <LcdScreen title={VIEW_TITLES[view]} isPlaying={player.isPlaying}>
+        <LcdScreen
+          title={VIEW_TITLES[view]}
+          isPlaying={player.isPlaying}
+          bodyRef={screenBodyRef}
+        >
           {renderView()}
         </LcdScreen>
         <ClickWheel
           isPlaying={player.isPlaying}
+          onRotate={handleRotate}
           onMenu={handleMenu}
           onPrevious={handlePrevious}
           onNext={handleNext}
