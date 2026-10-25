@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>B.KAINE // Arte Moderno</title>
+    <style>
+      :root {
+        --ipod-case: #18191b;
+        --ipod-border: #2b2c30;
+        --wheel-bg: #25262a;
+        --wheel-btn: #8a8e98;
+        --lcd-bg: #0d110e;
+        --lcd-text: #d2ded5;
+        --lcd-accent: #00ff66;
+        --lcd-highlight: #1e3325;
+        --font-lcd: "Courier New", Courier, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      body {
+        background-color: #050505;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: var(--font-lcd);
+        padding: 10px;
+      }
+
+      /* CARCASA DEL IPOD */
+      .ipod-device {
+        width: 100%;
+        max-width: 360px;
+        height: 640px;
+        background: linear-gradient(145deg, #202124, #121315);
+        border: 3px solid var(--ipod-border);
+        border-radius: 36px;
+        padding: 20px;
+        box-shadow:
+          0 20px 50px rgba(0, 0, 0, 0.9),
+          inset 0 2px 3px rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
+
+      /* PEGATINA / STICKER UNDERGROUND DECORATIVO */
+      .ipod-sticker {
+        position: absolute;
+        top: -10px;
+        right: 15px;
+        background: #ff2a00;
+        color: #000;
+        font-weight: bold;
+        font-size: 0.65rem;
+        padding: 2px 8px;
+        transform: rotate(5deg);
+        border: 1px solid #000;
+        box-shadow: 2px 2px 0px #000;
+        z-index: 10;
+      }
+
+      /* PANTALLA LCD */
+      .ipod-screen {
+        width: 100%;
+        height: 280px;
+        background-color: var(--lcd-bg);
+        border: 4px solid #080a09;
+        border-radius: 12px;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        color: var(--lcd-text);
+        position: relative;
+      }
+
+      /* BARRA DE ESTADO LCD SUPERIOR */
+      .lcd-header {
+        background: #141b16;
+        padding: 6px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.7rem;
+        border-bottom: 1px solid #1f2d24;
+        font-weight: bold;
+      }
+
+      .battery-icon {
+        width: 18px;
+        height: 9px;
+        border: 1px solid var(--lcd-text);
+        padding: 1px;
+        display: flex;
+      }
+      .battery-fill {
+        width: 70%;
+        height: 100%;
+        background: var(--lcd-accent);
+      }
+
+      /* CONTENIDO DE PANTALLA */
+      .lcd-body {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
+      }
+
+      /* VISTAS DE PANTALLA */
+      .view {
+        display: none;
+      }
+      .view.active {
+        display: block;
+      }
+
+      /* MENU DE PANTALLA */
+      .menu-list {
+        list-style: none;
+      }
+      .menu-item {
+        padding: 8px 6px;
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        border-bottom: 1px dashed #1a261e;
+      }
+      .menu-item.selected {
+        background-color: var(--lcd-accent);
+        color: #000;
+        font-weight: bold;
+      }
+
+      /* DETALLE DEL REPRODUCTOR (NOW PLAYING) */
+      .now-playing {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .track-meta-box {
+        display: flex;
+        gap: 10px;
+      }
+      .art-cover {
+        width: 85px;
+        height: 85px;
+        background: #1a1a1a;
+        border: 1px solid var(--lcd-text);
+        object-fit: cover;
+        filter: grayscale(40%);
+      }
+      .track-info-text h4 {
+        font-size: 0.95rem;
+        color: var(--lcd-accent);
+        margin-bottom: 2px;
+        text-transform: uppercase;
+      }
+      .track-info-text p {
+        font-size: 0.7rem;
+        opacity: 0.8;
+      }
+
+      /* HISTORIA DE LA CANCIÓN */
+      .story-box {
+        margin-top: 6px;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 6px;
+        border-left: 2px solid var(--lcd-accent);
+        font-size: 0.72rem;
+        line-height: 1.3;
+        max-height: 90px;
+        overflow-y: auto;
+      }
+
+      /* PROGRESS BAR */
+      .lcd-progress {
+        margin-top: 8px;
+        height: 8px;
+        background: #1f2d24;
+        border: 1px solid var(--lcd-text);
+        position: relative;
+      }
+      .lcd-progress-fill {
+        width: 40%;
+        height: 100%;
+        background: var(--lcd-accent);
+      }
+
+      /* GALERÍA LCD */
+      .gallery-lcd {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      .gallery-lcd img {
+        width: 100%;
+        height: 70px;
+        object-fit: cover;
+        border: 1px solid var(--lcd-text);
+        filter: grayscale(100%);
+      }
+
+      /* CLICK WHEEL (RUEDA GIRATORIA) */
+      .click-wheel {
+        width: 230px;
+        height: 230px;
+        background: linear-gradient(145deg, #2b2c30, #1c1d20);
+        border-radius: 50%;
+        box-shadow:
+          0 8px 15px rgba(0, 0, 0, 0.5),
+          inset 0 2px 4px rgba(255, 255, 255, 0.1);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .wheel-btn {
+        position: absolute;
+        color: var(--wheel-btn);
+        font-weight: bold;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+      }
+      .btn-menu {
+        top: 15px;
+      }
+      .btn-next {
+        right: 20px;
+      }
+      .btn-prev {
+        left: 20px;
+      }
+      .btn-play {
+        bottom: 15px;
+      }
+
+      /* BOTÓN CENTRAL */
+      .center-button {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(145deg, #1f2023, #2a2b2f);
+        border-radius: 50%;
+        border: 1px solid #141517;
+        box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        color: #666;
+      }
+      .center-button:active {
+        transform: scale(0.96);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ipod-device">
+      <div class="ipod-sticker">B.KAINE // 2026</div>
+
+      <!-- PANTALLA LCD -->
+      <div class="ipod-screen">
+        <div class="lcd-header">
+          <span id="lcd-title-bar">iPod / B.KAINE</span>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <span id="play-state-icon">▶</span>
+            <div class="battery-icon"><div class="battery-fill"></div></div>
+          </div>
+        </div>
+
+        <div class="lcd-body">
+          <!-- VISTA 1: MENÚ PRINCIPAL -->
+          <div id="view-menu" class="view active">
+            <ul class="menu-list">
+              <li class="menu-item selected" onclick="openView('view-player')">
+                1. Música / Tracks <span>></span>
+              </li>
+              <li class="menu-item" onclick="openView('view-gallery')">
+                2. Galería Fotos <span>></span>
+              </li>
+              <li class="menu-item" onclick="openView('view-bio')">
+                3. Sobre el Grupo <span>></span>
+              </li>
+              <li class="menu-item" onclick="openView('view-links')">
+                4. Redes / Contacto <span>></span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- VISTA 2: REPRODUCTOR & HISTORIA DE CANCIÓN -->
+          <div id="view-player" class="view">
+            <div class="now-playing">
+              <div class="track-meta-box">
+                <img
+                  id="lcd-art"
+                  class="art-cover"
+                  src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=300&q=80"
+                  alt="Portada"
+                />
+                <div class="track-info-text">
+                  <div
+                    style="font-size: 0.65rem; opacity: 0.6"
+                    id="lcd-track-num"
+                  >
+                    TRACK 01/03
+                  </div>
+                  <h4 id="lcd-track-name">INTRO</h4>
+                  <p>B.KAINE - ARTE MODERNO</p>
+                  <p
+                    style="margin-top: 4px; color: var(--lcd-accent)"
+                    id="lcd-track-prod"
+                  >
+                    PROD: BASSMAN
+                  </p>
+                </div>
+              </div>
+
+              <!-- Historia contextual de la canción -->
+              <div class="story-box" id="lcd-story">
+                <strong>HISTORIA:</strong> Paseos nocturnos por la periferia.
+                Ritmo pesado con sample de piano procesado que refleja la rutina
+                urbana.
+              </div>
+
+              <div class="lcd-progress">
+                <div class="lcd-progress-fill" id="lcd-progress-bar"></div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.65rem;
+                  margin-top: 2px;
+                "
+              >
+                <span id="time-curr">01:15</span>
+                <span id="time-total">03:42</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISTA 3: GALERÍA -->
+          <div id="view-gallery" class="view">
+            <div
+              style="font-size: 0.75rem; margin-bottom: 6px; font-weight: bold"
+            >
+              [ ARCHIVO FOTOGRÁFICO ]
+            </div>
+            <div class="gallery-lcd">
+              <img
+                src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=400&q=80"
+                alt="Concierto"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=400&q=80"
+                alt="Estudio"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=400&q=80"
+                alt="Calle"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=400&q=80"
+                alt="Backstage"
+              />
+            </div>
+          </div>
+
+          <!-- VISTA 4: SOBRE EL GRUPO -->
+          <div id="view-bio" class="view">
+            <div
+              style="
+                font-size: 0.75rem;
+                margin-bottom: 6px;
+                font-weight: bold;
+                color: var(--lcd-accent);
+              "
+            >
+              [ BIOGRAFÍA ]
+            </div>
+            <p style="font-size: 0.72rem; line-height: 1.4">
+              B.KAINE es un chaval que intentó ser QB pero muy allá pues no le
+              salió así que dijo "voy a tirar por el Rap porque de la petanca no
+              se puede vivir".
+            </p>
+          </div>
+
+          <!-- VISTA 5: ENLACES -->
+          <div id="view-links" class="view">
+            <div
+              style="font-size: 0.75rem; margin-bottom: 6px; font-weight: bold"
+            >
+              [ PLATAFORMAS ]
+            </div>
+            <ul class="menu-list" style="font-size: 0.75rem">
+              <li class="menu-item">> Bandcamp</li>
+              <li class="menu-item">> Spotify</li>
+              <li class="menu-item">> Youtube / Clips</li>
+              <li class="menu-item">> Instagram / Directo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RUEDA DE CONTROL (CLICK WHEEL) -->
+      <div class="click-wheel">
+        <div class="wheel-btn btn-menu" onclick="goMenu()">MENU</div>
+        <div class="wheel-btn btn-next" onclick="nextTrack()">▶▶</div>
+        <div class="wheel-btn btn-prev" onclick="prevTrack()">◀◀</div>
+        <div class="wheel-btn btn-play" onclick="togglePlay()">▶❚❚</div>
+
+        <!-- Botón central de selección -->
+        <div class="center-button" onclick="centerSelect()">SELECT</div>
+      </div>
+    </div>
+
+    <script>
+      // Datos de canciones
+      const playlist = [
+        {
+          num: "01/03",
+          title: "INTRO",
+          prod: "PROD: BASSMAN",
+          duration: "03:42",
+          art: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=300&q=80",
+          story:
+            "Paseos nocturnos por la periferia. Ritmo pesado con sample de piano procesado que refleja la rutina urbana.",
+        },
+        {
+          num: "02/03",
+          title: "DOBLE EMBRAGUE",
+          prod: "PROD: KRO BEATS",
+          duration: "04:15",
+          art: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=300&q=80",
+          story:
+            "Tema escrito tras un parón creativo. Reflexiona sobre el miedo a la hoja en blanco y la autenticidad artística.",
+        },
+        {
+          num: "03/03",
+          title: "KENOFALTENA",
+          prod: "PROD: B.KAINE REC",
+          duration: "03:10",
+          art: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=300&q=80",
+          story:
+            " Grabado en una sola toma con micro abierto. Energía noventera rindiendo tributo a la cultura del rap puro.",
+        },
+      ];
+
+      let currentTrackIdx = 0;
+      let isPlaying = true;
+      let currentView = "view-menu";
+
+      function updateTrackDisplay() {
+        const track = playlist[currentTrackIdx];
+        document.getElementById("lcd-track-num").innerText =
+          "TRACK " + track.num;
+        document.getElementById("lcd-track-name").innerText = track.title;
+        document.getElementById("lcd-track-prod").innerText = track.prod;
+        document.getElementById("time-total").innerText = track.duration;
+        document.getElementById("lcd-art").src = track.art;
+        document.getElementById("lcd-story").innerHTML =
+          "<strong>HISTORIA:</strong> " + track.story;
+      }
+
+      function openView(viewId) {
+        document
+          .querySelectorAll(".view")
+          .forEach((v) => v.classList.remove("active"));
+        document.getElementById(viewId).classList.add("active");
+        currentView = viewId;
+
+        const titleBar = document.getElementById("lcd-title-bar");
+        if (viewId === "view-menu") titleBar.innerText = "iPod / Menú";
+        else if (viewId === "view-player") titleBar.innerText = "Reproduciendo";
+        else if (viewId === "view-gallery") titleBar.innerText = "Galería";
+        else if (viewId === "view-bio") titleBar.innerText = "Bio";
+        else if (viewId === "view-links") titleBar.innerText = "Enlaces";
+      }
+
+      function goMenu() {
+        openView("view-menu");
+      }
+
+      function togglePlay() {
+        isPlaying = !isPlaying;
+        document.getElementById("play-state-icon").innerText = isPlaying
+          ? "▶"
+          : "❚❚";
+      }
+
+      function nextTrack() {
+        currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
+        updateTrackDisplay();
+        if (currentView !== "view-player") openView("view-player");
+      }
+
+      function prevTrack() {
+        currentTrackIdx =
+          (currentTrackIdx - 1 + playlist.length) % playlist.length;
+        updateTrackDisplay();
+        if (currentView !== "view-player") openView("view-player");
+      }
+
+      function centerSelect() {
+        if (currentView === "view-menu") {
+          openView("view-player");
+        } else {
+          togglePlay();
+        }
+      }
+
+      // Inicializar
+      updateTrackDisplay();
+    </script>
+  </body>
+</html>
