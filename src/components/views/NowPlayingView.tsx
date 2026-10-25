@@ -2,18 +2,29 @@ import { formatTrackPosition } from "../../lib/format";
 import { resolveMediaUrl } from "../../lib/media";
 import type { Album, Track } from "../../types";
 import { ProgressBar } from "../screen/ProgressBar";
+import { StoryBox } from "../screen/StoryBox";
 
 interface NowPlayingViewProps {
   album: Album;
   track: Track;
   index: number;
   total: number;
+  isPlaying: boolean;
   currentTime: number;
   duration: number | null;
   hasError: boolean;
 }
 
-export function NowPlayingView({ album, track, index, total, currentTime, duration, hasError }: NowPlayingViewProps) {
+export function NowPlayingView({
+  album,
+  track,
+  index,
+  total,
+  isPlaying,
+  currentTime,
+  duration,
+  hasError,
+}: NowPlayingViewProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2.5">
@@ -28,13 +39,11 @@ export function NowPlayingView({ album, track, index, total, currentTime, durati
           <p className="text-lcd-xs opacity-80">
             {album.artist} - {album.title}
           </p>
-          <p className="mt-1 text-lcd-xs text-lcd-accent opacity-80">PROD: {track.producer}</p>
+          {track.producer && <p className="mt-1 text-lcd-xs text-lcd-accent opacity-80">PROD: {track.producer}</p>}
         </div>
       </div>
 
-      <div className="mt-1.5 max-h-22.5 overflow-y-auto border-l-2 border-lcd-accent bg-white/3 p-1.5 text-lcd-sm leading-[1.3] select-text">
-        <strong>HISTORIA:</strong> {track.story}
-      </div>
+      <StoryBox key={track.id} paragraphs={track.story} elapsed={currentTime} isPlaying={isPlaying} />
 
       <ProgressBar currentTime={currentTime} duration={duration} />
       {hasError && (

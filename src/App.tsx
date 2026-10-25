@@ -60,6 +60,7 @@ export default function App() {
             track={player.track}
             index={player.index}
             total={tracks.length}
+            isPlaying={player.isPlaying}
             currentTime={player.currentTime}
             duration={player.duration}
             hasError={player.hasError}

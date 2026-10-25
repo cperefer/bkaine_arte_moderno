@@ -10,5 +10,7 @@ const ABSOLUTE_URL = /^(?:[a-z][a-z\d+.-]*:|\/)/i;
 
 export function resolveMediaUrl(key: string, base: string = MEDIA_BASE_URL): string {
   if (ABSOLUTE_URL.test(key)) return key;
-  return `${base.replace(/\/+$/, "")}/${key}`;
+  // Los nombres de archivo pueden llevar espacios o "%" ("07-1% FT SOAVE.wav").
+  const path = key.split("/").map(encodeURIComponent).join("/");
+  return `${base.replace(/\/+$/, "")}/${path}`;
 }

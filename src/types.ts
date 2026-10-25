@@ -18,9 +18,10 @@ export interface Album {
 export interface Track {
   id: string;
   title: string;
-  producer: string;
+  producer?: string;
   audioKey: string;
-  story: string;
+  /** Un elemento por párrafo. */
+  story: readonly string[];
 }
 
 export interface Photo extends MediaImage {
