@@ -8,8 +8,9 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    // Fotos de la galería: todas las imágenes de public/media/covers/.
-    galleryPlugin({ dir: "covers" }),
+    // Galería: originales en media-src/gallery/; las versiones reducidas se
+    // sirven en /media/gallery/{thumb,full}/.
+    galleryPlugin({ sourceDir: "media-src/gallery", outDir: "gallery" }),
     // Cloudflare Pages rechaza archivos de más de 25 MiB.
     assetSizePlugin(),
   ],

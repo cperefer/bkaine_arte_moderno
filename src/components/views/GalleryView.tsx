@@ -62,9 +62,10 @@ export function GalleryView({ photos, cursorIndex, isOpen, onOpen, onClose }: Ga
                 >
                   <img
                     className="h-17.5 w-full border border-lcd-text object-cover grayscale"
-                    src={resolveMediaUrl(photo.key)}
+                    src={resolveMediaUrl(photo.thumbKey)}
                     alt={photo.alt}
                     loading="lazy"
+                    decoding="async"
                   />
                 </button>
               </li>

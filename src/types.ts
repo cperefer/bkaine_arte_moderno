@@ -24,8 +24,10 @@ export interface Track {
   story: readonly string[];
 }
 
+/** `key` es la versión ampliada; `thumbKey`, la miniatura reducida. */
 export interface Photo extends MediaImage {
   id: string;
+  thumbKey: string;
 }
 
 export interface SocialLink {

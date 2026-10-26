@@ -24,8 +24,11 @@ Los audios y las fotos van en `public/media/` y se publican junto a la web en
 Cloudflare Pages:
 
 - Audios: `public/media/audio/*.mp3`, referenciados desde `src/data/tracks.ts`.
-- Galería: todas las imágenes de `public/media/covers/`. No hay lista que
-  mantener: basta con añadir o borrar archivos (se fija al hacer el build).
+- Galería: los originales van en `media-src/gallery/` (fuera de `public/`, no
+  se publican). No hay lista que mantener: basta con añadir o borrar archivos.
+  `plugins/galleryPlugin.ts` genera de cada foto una miniatura y una versión
+  ampliada en WebP (`/media/gallery/{thumb,full}/`), al vuelo en `npm run dev`
+  y como archivos del build en producción. La lista se fija al hacer el build.
 
 Cloudflare Pages no admite archivos de más de 25 MiB; `npm run build` se
 detiene y los enumera si hay alguno en `public/` (p. ej. los WAV originales).
