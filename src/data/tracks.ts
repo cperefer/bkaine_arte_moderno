@@ -7,7 +7,7 @@ export const tracks: readonly Track[] = [
     id: "intro",
     title: "INTRO",
     producer: "BASSMAN",
-    audioKey: "audio/01-INTRO.wav",
+    audioKey: "audio/01-INTRO.mp3",
     story: [
       "Básicamente aquí refuerzo la idea del rapear lo que eres, como eres y con lo que tienes, sin vender motos ni demás, simplemente siendo consecuente con uno mismo.",
       "También hablo del llegar a tener temas con un millón de views, hay que ser franco si pudiese vivir de esto que es algo que me gusta y me llena no le diría que no, pero siempre manteniendo mi esencia y haciendo mi rap. No me gustaría llegar ahí siendo un producto de usar y tirar.",
@@ -19,7 +19,7 @@ export const tracks: readonly Track[] = [
     id: "doble-embrague",
     title: "DOBLE EMBRAGUE",
     producer: "KRO BEATS",
-    audioKey: "audio/02- DOBLE EMBRAGUE.wav",
+    audioKey: "audio/02- DOBLE EMBRAGUE.mp3",
     story: [
       "Lo que se escucha al principio distorsionado son las primeras barras con las que entro “compito contra mí, nose ni que decirme ,caigo en el abismo como la armada invencible…” esto lo explico para que no pase como mi colega fiti, que nose porque cojones se creía que decía la palabra dinero muchas veces.",
       "Diría que lo de muchas rallas por la noche pero pocos tigres es de las barras que mas me gustan de todo el disco, mucha gente en lavabos con el pecho hinchado pero a la hora de la verdad…",
@@ -33,7 +33,7 @@ export const tracks: readonly Track[] = [
     id: "kenofaltena",
     title: "KENOFALTENA",
     producer: "B.KAINE REC",
-    audioKey: "audio/03-KENOFALTENA.wav",
+    audioKey: "audio/03-KENOFALTENA.mp3",
     story: [
       "Aquí entre mi grupo de colegas pasamos gran parte de nuestra adolescencia en una bodega, como si fuese un local, claro como es normal tu fumas o cuando hace frio prendes leña, sales de ahí con la ropa oliendo a humo a lo loco, también era una época en la quien más o quien menos llevábamos cresta en algún momento.",
       "“yo también sueño con supras y porches pero no todo es derroche” eso otra vez reafirma la idea de que son un inconformista pero aun así intento mantener los pies en la tierra.",
@@ -45,7 +45,7 @@ export const tracks: readonly Track[] = [
   {
     id: "nudes-ft-fayar",
     title: "NUDES FT FAYAR",
-    audioKey: "audio/04- NUDES FT FAYAR.wav",
+    audioKey: "audio/04- NUDES FT FAYAR.mp3",
     story: [
       "En principio este tema no iba aparecer en el disco, es mas este tema casi no iba ni a existir, en su lugar iba aparecer una colabo llamada training day pero como se complico mucho grabar ese tema al final el puto Raúl me dijo vamos de este nos grabamos un fayar-bk para tu disco y pista, no me pareció mala idea, así que surgió este tema que nos escribimos y dejamos grabado en un par de horas, la verdad que relación calidad del tema por tiempo invertido me parece una sobrada.",
       "La entrada es fácil de pillar, prefiero estar callado y ser discreto con los tombos antes de armarla y llamar su atención o si la armo hacerlo cuando sepa que no vean como digo en el tema “perfil bajo ante la ley”",
@@ -59,7 +59,7 @@ export const tracks: readonly Track[] = [
   {
     id: "sin-hacer-ruido",
     title: "SIN HACER RUIDO",
-    audioKey: "audio/05- SIN HACER RUIDO.wav",
+    audioKey: "audio/05- SIN HACER RUIDO.mp3",
     story: [
       "“Roban del grupo bag y motos en las cocheras” ahora han puesto cámaras en las cocheras de pisol después de que hayan robado 70 vehículos no está mal, luego llegan tus primos a tocarte los cojones mientras estas grabando un videoclip en una gasolinera cerrada y te preguntan que si sabes algo, cabron esfuérzate ya bastante te pago parte del suelo, no me hagas hacerte tu trabajo.",
       "Bailando un C-walk a lo serena, es por Serena Williams bailando en la superbowl en la que hizo el intermedio Kendrick Lamar, la tía está ahí chill haciendo sus pasos mientras Kendrick le llama pederasta a Drake, me gusto la actitud no os voy a engañar.",
@@ -76,7 +76,7 @@ export const tracks: readonly Track[] = [
   {
     id: "nieve",
     title: "NIEVE",
-    audioKey: "audio/06-NIEVE.wav",
+    audioKey: "audio/06-NIEVE.mp3",
     story: [
       "Esta letra también es bastante antigua poco he de añadir en este tema, es el que está escrito en mi peor momento de todo 2025 y creo que con escucharlo se puede notar.",
       "“David iba para el barsa pero ha perdido el toque…” esto es por uno de mi pueblo, que casi es una leyenda ya, pero se cuenta que hizo las pruebas para jugar en el barsa y que llego a coincidir con xavi hernandez, nose hasta qué punto es verídico pero lo que si se es que es una persona que está integrada en un centro de enfermos mentales por excesos y abusos con sustancias desarrollo una esquizofrenia.",
@@ -86,7 +86,7 @@ export const tracks: readonly Track[] = [
   {
     id: "1-por-ciento-ft-soave",
     title: "1% FT SOAVE",
-    audioKey: "audio/07-1% FT SOAVE.wav",
+    audioKey: "audio/07-1% FT SOAVE.mp3",
     story: [
       "“Salgo a lo Roc Marciano con las Sunglases” lo vi en burgos actuar salió con las gafas de sol, rapeo de una forma que yo no había visto en mi vida y se fue dejando caer el micro, la verdad que será de los directos que más he disfrutado en mi vida, ya no por el espectáculo, ni por el ambiente, simplemente por mirar y pensar como coño lo hace.",
       "“vengo focus como flaco en los ravens” Joe Flaco es un QB que gano una superbowl jugando en los Baltimore Ravens, no es un jugador de gran nivel en comparación con otras estrellas de la NFL pero el tío llego ahí, hizo el papel que le tocaba y gano.",
@@ -99,7 +99,7 @@ export const tracks: readonly Track[] = [
   {
     id: "ice-man",
     title: "ICE MAN",
-    audioKey: "audio/08-ICE MAN.wav",
+    audioKey: "audio/08-ICE MAN.mp3",
     story: [
       "Uri Geller es un ilusionista que doblaba cucharas con la mente, exactamente igual que como lo hacen el Carmen.",
       "Con lo del rapero menos rapper de todo el continente, quería decir que a mí a veces me cansa la actitud de algunos raperos, sobre todo aquellos que van forzadísimos, que hablas con alguno y mas que personas parecen un personaje secundario del GTA, que es para decir, loco tranquilo que no te están grabando, no hay cámaras delante, otra vez volviendo un poco al punto llevar una máscara para encajar en determinados contextos.",
@@ -113,7 +113,7 @@ export const tracks: readonly Track[] = [
   {
     id: "mascaras-venecianas",
     title: "MASCARAS VENECIANAS",
-    audioKey: "audio/09 -MASCARAS VENECIANAS.wav",
+    audioKey: "audio/09 -MASCARAS VENECIANAS.mp3",
     story: [
       "La primera parte del tema sobretodo se centra en un aspecto que es el hecho de vender tiene un lado muy oscuro, si ganas dinero y si te lo montas bien dices de puta madre, pero si de repente te das cuenta que estas vendiendo a una persona que aprecias y te vas dando cuenta que es un adicto; ¿qué haces? Sigues anteponiendo tus ganas de hacer dinero por encima de ver alguien cercano hundirse, habrá que gente que se la sude pero a mí por lo menos no.",
       "“License con un BM” License es un tío que conduce por las autovías de nueva york con un puto demonio, esquivando coches con vehículos de alta gamma como el Urus, tiene un canal de youtube recomiendo verlo porque te deja en shock las cosas que hace, obviamente va con la cara tapa aquí si que es un no face no case de manual.",
@@ -127,7 +127,7 @@ export const tracks: readonly Track[] = [
   {
     id: "origen-ft-amiel-y-gael",
     title: "ORIGEN FT AMIEL Y GAEL",
-    audioKey: "audio/10- ORIGEN FT AMIEL Y GAEL.wav",
+    audioKey: "audio/10- ORIGEN FT AMIEL Y GAEL.mp3",
     story: [
       "El Noma era un restuarante de Copenague con tres estrellas Michelin y fue nombrado 5 años como mejor restaurante del Mundo, cerró en 2024.",
       "“Me atrapa la bola que rebota en esa lata” veo muchas veces las latas de spray que tengo y me dan ganas de ir a pintar, muchas veces hablo con los que solía ir de haber cuando vamos… tenemos que ir un día… pero eso nunca llega, supongo que nos hemos vuelto cómodos o es simple vagancia, por una parte me da bastante rabia.",
@@ -137,7 +137,7 @@ export const tracks: readonly Track[] = [
   {
     id: "lucho-conmigo",
     title: "LUCHO CONMIGO",
-    audioKey: "audio/11- LUCHO CONMIGO.wav",
+    audioKey: "audio/11- LUCHO CONMIGO.mp3",
     story: [
       "SIN CITY, Es un película bueno más bien un comic bastante oscuro en el que es todo en blanco y negro menos la sangre que si se ve de color rojo.",
       "Cuando teníamos la bodega siempre estaba la típica de esconder algún papel por ahí por si acaso para emergencias, aunque esas emergencias acababan ocurriendo día sí y día también.",
@@ -149,7 +149,7 @@ export const tracks: readonly Track[] = [
   {
     id: "92-bulls",
     title: "92 BULLS",
-    audioKey: "audio/12-92 BULLS.wav",
+    audioKey: "audio/12-92 BULLS.mp3",
     story: [
       "“Nos medimos cuerpo a cuerpo como el cabron de akaza, pero a mi ningún pilar puede darme caza” es la referencia sin duda mas friki de todo el disco, es del anime de Demon Slayer también os recomiendo que le echéis un ojo si os molan esas frikadas.",
       "Blicky, es una forma “mas coloquial” de decir pistola.",
@@ -163,7 +163,7 @@ export const tracks: readonly Track[] = [
   {
     id: "black-alien-ft-khasko-viejo",
     title: "BLACK ALIEN FT KHASKO VIEJO",
-    audioKey: "audio/13- BLACK ALIEN FT KHASKO VIEJO.wav",
+    audioKey: "audio/13- BLACK ALIEN FT KHASKO VIEJO.mp3",
     story: [
       "“QB sack” es cuando en futbol americano algún jugador mete la mano y le jode el pase al Quarter Back del equipo rival, es algo parecido a un tapón en basket.",
       "Kareem Abdul –jabbar un tio que gano 6 MVPs y tenía un movimiento llamado gancho del cielo que era imparable, uno de los mejores de todos los tiempos de la NBA, así que ya sabéis cuando suene la bocina tiráis como él.",
@@ -178,7 +178,7 @@ export const tracks: readonly Track[] = [
   {
     id: "pisol-ghospel",
     title: "PISOL GHOSPEL",
-    audioKey: "audio/14-PISOL GHOSPEL.wav",
+    audioKey: "audio/14-PISOL GHOSPEL.mp3",
     story: [
       "“I feel like will en soy leyenda” soy leyenda es una película de Will Smith en la que es un futuro apocalíptico solo está el con su Perro, la película favorita de mi colegon Enrique si no recuerdo mal, Enrique se te quiere chacho pero que loco estas.",
       "La silla en el parking es por así decirlo el trono que me he conseguido, llevo muchos años en esto y si hablamos de reconocimiento nacional pues estoy jodido, pero mira, yo que se tengo una puta silla del decathlon y el reconcomiendo de la gente que me importa ¿y tú de qué? Como decía el Charlie.",

@@ -20,9 +20,21 @@ npm run lint
 
 ## Archivos multimedia
 
-Los datos guardan claves relativas (`audio/intro.mp3`), nunca URLs.
-`src/lib/media.ts` las resuelve contra `VITE_MEDIA_BASE_URL`:
+Los audios y las fotos van en `public/media/` y se publican junto a la web en
+Cloudflare Pages:
 
-- Local (por defecto): los archivos van en `public/media/` (`audio/`, `covers/`, `gallery/`).
-- Cloudflare R2: subir los mismos archivos con las mismas claves al bucket y
-  definir `VITE_MEDIA_BASE_URL=https://<dominio-del-bucket>/` (ver `.env.example`).
+- Audios: `public/media/audio/*.mp3`, referenciados desde `src/data/tracks.ts`.
+- Galería: todas las imágenes de `public/media/covers/`. No hay lista que
+  mantener: basta con añadir o borrar archivos (se fija al hacer el build).
+
+Cloudflare Pages no admite archivos de más de 25 MiB; `npm run build` se
+detiene y los enumera si hay alguno en `public/` (p. ej. los WAV originales).
+
+Los datos guardan claves relativas (`audio/01-INTRO.mp3`), nunca URLs;
+`src/lib/media.ts` las resuelve. Para servirlos desde otro sitio, definir
+`VITE_MEDIA_BASE_URL` (ver `.env.example`).
+
+## Despliegue en Cloudflare Pages
+
+- Comando de build: `npm run build`
+- Directorio de salida: `dist`

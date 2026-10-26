@@ -1,7 +1,7 @@
 /**
  * Las claves (`key`, `audioKey`) son rutas relativas al almacenamiento de
  * medios ("audio/intro.mp3"). `resolveMediaUrl` las convierte en URL, de modo
- * que pasar de archivos locales a Cloudflare R2 no toca datos ni componentes.
+ * que cambiar dónde se alojan los archivos no toca datos ni componentes.
  * Una URL absoluta también es válida (útil para recursos provisionales).
  */
 export interface MediaImage {

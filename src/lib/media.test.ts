@@ -16,7 +16,7 @@ describe("resolveMediaUrl", () => {
   });
 
   it("codifica espacios y % en los nombres de archivo", () => {
-    expect(resolveMediaUrl("audio/07-1% FT SOAVE.wav", "/media/")).toBe("/media/audio/07-1%25%20FT%20SOAVE.wav");
+    expect(resolveMediaUrl("audio/07-1% FT SOAVE.mp3", "/media/")).toBe("/media/audio/07-1%25%20FT%20SOAVE.mp3");
   });
 
   it("respeta las URL absolutas y las rutas desde la raíz", () => {
