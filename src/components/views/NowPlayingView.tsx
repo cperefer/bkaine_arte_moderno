@@ -43,14 +43,19 @@ export function NowPlayingView({
         </div>
       </div>
 
+      {/* Justo bajo los datos de la canción para que se vea aunque la pantalla sea baja. */}
+      {hasError && (
+        <p
+          role="alert"
+          className="border-l-2 border-lcd-error bg-lcd-error/10 px-1.5 py-1 text-lcd-xs font-bold text-lcd-error"
+        >
+          ⚠ NO SE PUDO CARGAR LA CANCIÓN
+        </p>
+      )}
+
       <StoryBox key={track.id} paragraphs={track.story} elapsed={currentTime} isPlaying={isPlaying} />
 
       <ProgressBar currentTime={currentTime} duration={duration} />
-      {hasError && (
-        <p role="alert" className="text-lcd-2xs text-lcd-accent">
-          [ ERROR: NO SE PUDO CARGAR EL AUDIO ]
-        </p>
-      )}
     </div>
   );
 }

@@ -19,6 +19,8 @@
   --color-lcd-line: #1f2d24;
   --color-lcd-divider: #1a261e;
   --color-lcd-cover: #1a1a1a;
+  /* Avisos de error: mismo rojo que la pegatina. */
+  --color-lcd-error: #ff2a00;
 
   --color-wheel-from: #2b2c30;
   --color-wheel-to: #1c1d20;
