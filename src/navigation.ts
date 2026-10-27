@@ -33,6 +33,6 @@ export const MENU_SECTION: Record<ViewId, MenuViewId | null> = {
 export const MENU_ITEMS: readonly { view: MenuViewId; label: string }[] = [
   { view: "tracks", label: "1. Música / Tracks" },
   { view: "gallery", label: "2. Galería Fotos" },
-  { view: "bio", label: "3. Sobre el Grupo" },
+  { view: "bio", label: '3. Sobre "Arte Moderno"' },
   { view: "links", label: "4. Redes / Contacto" },
 ];

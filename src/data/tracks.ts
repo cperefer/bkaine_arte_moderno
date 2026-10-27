@@ -6,7 +6,6 @@ export const tracks: readonly Track[] = [
   {
     id: "intro",
     title: "INTRO",
-    producer: "BASSMAN",
     audioKey: "audio/01-INTRO.mp3",
     story: [
       "Básicamente aquí refuerzo la idea del rapear lo que eres, como eres y con lo que tienes, sin vender motos ni demás, simplemente siendo consecuente con uno mismo.",
@@ -18,7 +17,6 @@ export const tracks: readonly Track[] = [
   {
     id: "doble-embrague",
     title: "DOBLE EMBRAGUE",
-    producer: "KRO BEATS",
     audioKey: "audio/02- DOBLE EMBRAGUE.mp3",
     story: [
       "Lo que se escucha al principio distorsionado son las primeras barras con las que entro “compito contra mí, nose ni que decirme ,caigo en el abismo como la armada invencible…” esto lo explico para que no pase como mi colega fiti, que nose porque cojones se creía que decía la palabra dinero muchas veces.",
@@ -32,7 +30,6 @@ export const tracks: readonly Track[] = [
   {
     id: "kenofaltena",
     title: "KENOFALTENA",
-    producer: "B.KAINE REC",
     audioKey: "audio/03-KENOFALTENA.mp3",
     story: [
       "Aquí entre mi grupo de colegas pasamos gran parte de nuestra adolescencia en una bodega, como si fuese un local, claro como es normal tu fumas o cuando hace frio prendes leña, sales de ahí con la ropa oliendo a humo a lo loco, también era una época en la quien más o quien menos llevábamos cresta en algún momento.",
@@ -86,6 +83,7 @@ export const tracks: readonly Track[] = [
   {
     id: "1-por-ciento-ft-soave",
     title: "1% FT SOAVE",
+    producer: "LIL SONG FYAH",
     audioKey: "audio/07-1% FT SOAVE.mp3",
     story: [
       "“Salgo a lo Roc Marciano con las Sunglases” lo vi en burgos actuar salió con las gafas de sol, rapeo de una forma que yo no había visto en mi vida y se fue dejando caer el micro, la verdad que será de los directos que más he disfrutado en mi vida, ya no por el espectáculo, ni por el ambiente, simplemente por mirar y pensar como coño lo hace.",
@@ -127,6 +125,7 @@ export const tracks: readonly Track[] = [
   {
     id: "origen-ft-amiel-y-gael",
     title: "ORIGEN FT AMIEL Y GAEL",
+    producer: "LIL SONG FYAH",
     audioKey: "audio/10- ORIGEN FT AMIEL Y GAEL.mp3",
     story: [
       "El Noma era un restuarante de Copenague con tres estrellas Michelin y fue nombrado 5 años como mejor restaurante del Mundo, cerró en 2024.",
@@ -163,6 +162,7 @@ export const tracks: readonly Track[] = [
   {
     id: "black-alien-ft-khasko-viejo",
     title: "BLACK ALIEN FT KHASKO VIEJO",
+    producer: "LIL SONG FYAH",
     audioKey: "audio/13- BLACK ALIEN FT KHASKO VIEJO.mp3",
     story: [
       "“QB sack” es cuando en futbol americano algún jugador mete la mano y le jode el pase al Quarter Back del equipo rival, es algo parecido a un tapón en basket.",
