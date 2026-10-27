@@ -1,0 +1,8 @@
+# Cabeceras de Cloudflare Pages (https://developers.cloudflare.com/pages/configuration/headers/).
+# La web solo carga recursos propios; si algún día se usa VITE_MEDIA_BASE_URL
+# hay que añadir ese dominio a img-src y media-src.
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

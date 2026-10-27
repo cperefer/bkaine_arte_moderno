@@ -4,7 +4,7 @@ export const socialLinks: readonly SocialLink[] = [
   {
     id: "spotify",
     label: "Spotify",
-    href: "https://open.spotify.com/artist/0YpQV6wh4t57RZCpstMaaH?si=VGPkFqJRSDSV19FN_Q24ww&utm_source=copy-link",
+    href: "https://open.spotify.com/artist/0YpQV6wh4t57RZCpstMaaH",
   },
   {
     id: "instagram",
@@ -14,6 +14,6 @@ export const socialLinks: readonly SocialLink[] = [
   {
     id: "blr",
     label: "Black Soul Records",
-    href: "https://youtube.com/@blacksoul979?si=MFVCpS2W1l-elTW5",
+    href: "https://www.youtube.com/@blacksoul979",
   },
 ];
