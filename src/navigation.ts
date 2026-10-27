@@ -6,7 +6,7 @@ export const VIEW_TITLES: Record<ViewId, string> = {
   tracks: "Música",
   player: "Reproduciendo",
   gallery: "Galería",
-  bio: "Bio",
+  bio: "Arte Moderno",
   links: "Enlaces",
 };
 
