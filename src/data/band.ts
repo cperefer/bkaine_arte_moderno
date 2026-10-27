@@ -11,7 +11,6 @@ export const album: Album = {
   },
 };
 
-// TODO: texto provisional, pendiente de la bio definitiva.
 export const bio = `Arte moderno surgió para poner broche final al concepto de llevar la cara tapada que llevo usando desde que empecé con el aka de B.KAINE.
 
 Se asocia el llevar la cara tapada al "no face no case" como es lógico pero yo quería darle una vuelta de tuerca y usarlo como crítica social al hecho de que todo el mundo lleva una máscara. En el trabajo, con la pareja, con la familia, con amigos...hay gente que cambia su opinión referente al mundo u sus comportamientos dependiendo de que con quien se junte.
