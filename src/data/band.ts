@@ -6,8 +6,8 @@ export const album: Album = {
   artist: "B.KAINE",
   title: "ARTE MODERNO",
   cover: {
-    key: "/media-src/gallery/01_cover.webp",
-    alt: "Portada provisional del disco Arte Moderno",
+    key: "/media/gallery/thumb/01_cover.webp",
+    alt: "Portada de Arte Moderno",
   },
 };
 
