@@ -12,6 +12,7 @@ import { album, bio, stickerText } from "./data/band";
 import { photos } from "./data/gallery";
 import { socialLinks } from "./data/links";
 import { tracks } from "./data/tracks";
+import { useMediaSession } from "./hooks/useMediaSession";
 import { usePlayer } from "./hooks/usePlayer";
 import { tickFeedback } from "./lib/haptics";
 import { moveIndex } from "./lib/wheel";
@@ -28,6 +29,7 @@ const WHEEL_SCROLL_PX = 48;
 
 export default function App() {
   const player = usePlayer(tracks);
+  useMediaSession(player, album);
   const [view, setView] = useState<ViewId>("menu");
   // Como en el iPod, el menú resalta la última sección abierta y SELECT la abre.
   const [menuCursor, setMenuCursor] = useState<MenuViewId>("tracks");

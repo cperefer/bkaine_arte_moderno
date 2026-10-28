@@ -15,6 +15,8 @@ export interface Player {
   select: (index: number) => void;
   next: () => void;
   previous: () => void;
+  /** Salta a un segundo de la canción actual (barra de la notificación). */
+  seek: (time: number) => void;
 }
 
 /**
@@ -123,8 +125,13 @@ export function usePlayer(tracks: readonly Track[]): Player {
     loadTrack(previousIndex(indexRef.current, tracks.length), true);
   }, [tracks, loadTrack]);
 
+  const seek = useCallback((time: number) => {
+    const audio = audioRef.current;
+    if (audio) audio.currentTime = time;
+  }, []);
+
   const track = tracks[index];
   if (!track) throw new Error("usePlayer necesita al menos una pista");
 
-  return { track, index, isPlaying, currentTime, duration, hasError, togglePlay, select, next, previous };
+  return { track, index, isPlaying, currentTime, duration, hasError, togglePlay, select, next, previous, seek };
 }
