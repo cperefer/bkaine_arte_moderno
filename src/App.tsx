@@ -128,12 +128,23 @@ export default function App() {
     openView("player");
   };
 
+  // Con una foto ampliada, ◀◀ y ▶▶ pasan de foto en vez de cambiar de canción.
+  const isBrowsingPhotos = view === "gallery" && isPhotoOpen;
+
+  const stepPhoto = (step: number) => {
+    const cursor = photoCursorRef.current;
+    const next = moveIndex(cursor, step, photos.length);
+    if (next !== cursor) updatePhotoCursor(next);
+  };
+
   const handleNext = () => {
+    if (isBrowsingPhotos) return stepPhoto(1);
     player.next();
     if (view !== "player") openView("player");
   };
 
   const handlePrevious = () => {
+    if (isBrowsingPhotos) return stepPhoto(-1);
     player.previous();
     if (view !== "player") openView("player");
   };
@@ -207,6 +218,7 @@ export default function App() {
         </LcdScreen>
         <ClickWheel
           isPlaying={player.isPlaying}
+          skipsPhotos={isBrowsingPhotos}
           onRotate={handleRotate}
           onMenu={handleMenu}
           onPrevious={handlePrevious}

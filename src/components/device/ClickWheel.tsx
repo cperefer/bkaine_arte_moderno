@@ -3,6 +3,8 @@ import { tapFeedback } from "../../lib/haptics";
 
 interface ClickWheelProps {
   isPlaying: boolean;
+  /** ◀◀ y ▶▶ pasan de foto en lugar de canción (solo cambia su etiqueta accesible). */
+  skipsPhotos?: boolean;
   /** Giro de la rueda: positivo en sentido horario (bajar), negativo antihorario (subir). */
   onRotate: (steps: number) => void;
   onMenu: () => void;
@@ -19,6 +21,7 @@ const wheelButton =
 
 export function ClickWheel({
   isPlaying,
+  skipsPhotos = false,
   onRotate,
   onMenu,
   onPrevious,
@@ -45,7 +48,7 @@ export function ClickWheel({
         type="button"
         className={`${wheelButton} right-3`}
         onClick={press(onNext)}
-        aria-label="Siguiente canción"
+        aria-label={skipsPhotos ? "Foto siguiente" : "Siguiente canción"}
       >
         ▶▶
       </button>
@@ -53,7 +56,7 @@ export function ClickWheel({
         type="button"
         className={`${wheelButton} left-3`}
         onClick={press(onPrevious)}
-        aria-label="Canción anterior"
+        aria-label={skipsPhotos ? "Foto anterior" : "Canción anterior"}
       >
         ◀◀
       </button>
